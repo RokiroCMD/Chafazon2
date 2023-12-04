@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chafazon Registro</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #ff0000; 
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            .register-container {
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                width: 300px;
+                text-align: center;
+            }
+
+            .register-container h2 {
+                color: #333;
+            }
+
+            .register-form {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                color: #555;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .form-group button {
+                background-color: #ff0000;
+                color: #fff;
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .error-message {
+                color: #ff0000;
+                margin-top: 10px;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    </head>
+    <body>
+        <div class="register-container">
+            <h2>Chafazon.com - Registro</h2>
+            <form class="register-form" id="registerForm">
+                <div class="form-group">
+                    <label for="newName">Nombre:</label>
+                    <input type="text" id="newName" name="newName" required>
+                </div>
+                <div class="form-group">
+                    <label for="newUsername">Correo:</label>
+                    <input type="text" id="newUsername" name="newUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Contraseña:</label>
+                    <input type="password" id="newPassword" name="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <button type="button" onclick="submitRegistration()">Registrar</button>
+                </div>
+            </form>
+            <div class="error-message"></div>
+            <div onclick="location.href = 'index.html';" style="color: #007bff; text-decoration: underline; cursor: pointer;">¿Ya tienes una cuenta? Inicia sesión aquí.</div>
+
+            <script>
+                function submitRegistration() {
+                    var newName = $("#newName").val();
+                    var newUsername = $("#newUsername").val();
+                    var newPassword = $("#newPassword").val();
+
+                    if (newName.trim() === "" || newUsername.trim() === "" || newPassword.trim() === "") {
+                        $(".error-message").text("Por favor, completa todos los campos.");
+                        return;
+                    }
+
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(newUsername)) {
+                        $(".error-message").text("Por favor, ingresa un correo electrónico válido.");
+                        return;
+                    }
+
+
+                    $.ajax({
+                        url: "RegistroServlet",
+                        type: "POST",
+                        data: {
+                            newName: newName,
+                            newUsername: newUsername,
+                            newPassword: newPassword
+                        },
+                        success: function (data) {
+                            console.log("Éxito:", data);
+
+
+                            $(".error-message").text(data);
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            console.error("Error:", textStatus, errorThrown);
+                            $(".error-message").text("Error en la solicitud. Inténtalo de nuevo.");
+                        }
+                    });
+                }
+            </script>
+        </div>
+    </body>
+</html>

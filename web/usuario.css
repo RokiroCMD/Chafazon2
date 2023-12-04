@@ -1,0 +1,63 @@
+body {
+    background: linear-gradient(#ffffff, #ffebeb);
+    height: 100vh;
+    margin: 0 auto;
+    padding-top: 64px;
+    position: relative;
+}
+.container{
+    display: flex;
+    width: 800px;
+    height: 60vh;
+    padding-left: 25vh;
+    padding-right: 25vh;
+    background: #ffffff;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%,-50%);
+    border-radius: 50px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.content{
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+    flex-direction: column;
+    
+}
+
+.proflie-icon{
+    height: 100%;
+}
+
+.container-info{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    
+}
+
+.container-info-item{
+    flex-direction: row;
+    text-align: center;
+    
+}
+#name{
+    font-size: 48px;
+    font-weight: bold;
+    color: #ad101f;
+}
+#email{
+    font-size: 24px;
+}
+#balance{
+    font-size: 24px;
+}
+
+.saldo{
+    font-size: 20px;
+    color: #ad101f;
+    font-weight: bold;
+}

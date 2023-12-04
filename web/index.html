@@ -1,163 +1,145 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
     <head>
-        <title>Chafazon</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link rel="stylesheet" href="main.css">
+        <title>Chafazon login</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: linear-gradient(to right, #ff6666, #cc0000);
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+
+            .login-container {
+                background-color: #fff;
+                box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                width: 300px;
+                text-align: center;
+            }
+
+            .login-container h2 {
+                color: #333;
+            }
+
+            .login-form {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                color: #555;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .form-group button {
+                background-color: #ff0000;
+                color: #fff;
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .register-link {
+                color: #007bff;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+            .error-message {
+                color: #ff0000;
+                margin-top: 10px;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     </head>
     <body>
-
-        <nav class="navbar fixed-top bg-danger">
-            <div class="container-fluid">
-
-                <a class="navbar-brand" href="#Inicio">
-                    <img src="images/ChafazonLargo32.png" alt="Bootstrap" width="128" height="32">
-                </a>
-
-                <div class="d-flex">
-                    <a class="p-1" href="#Fondos">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-wallet2" viewBox="0 0 16 16">
-                        <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
-                        </svg>
-                    </a>
-                    <a  class="p-2 text-white text-decoration-none h5">$100.00</a>
-
-                    <a class="p-1" href="#Carrito">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-cart-fill" viewBox="0 0 16 16">
-                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-                        </svg>
-                    </a>
-
-                    <a class="p-1" href="#Perfil">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-person-circle " viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
-                    </a>
-
-                    <a class="p-1" href="#CerrarSesion">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
-                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
-                        </svg>
-                    </a>
-
-
+        <div class="login-container">
+            <h2>Chafazon.com</h2>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
                 </div>
-
-            </div>
-        </nav>
-
-        <div class ="ofertas">
-            <h2 class="title-chafazon">OFERTAS DEL DIA</h2>
-            <div id="carouselExampleDark" class="carousel carousel-dark slide p-2 bg-light">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
                 </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="https://ss203.liverpool.com.mx/xl/1114398735.jpg" class="d-block mx-auto" height="210" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5 class="text-black-shadow text-white">TENIS NIKE</h5>
-                            <p class="h4 text-danger text-black-shadow" >$450.00</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://resources.sears.com.mx/medios-plazavip/fotos/productos_sears1/original/3321340.jpg?scale=550" class="d-block mx-auto" height="210" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5 class="text-black-shadow text-white">Zapatos JJ</h5>
-                            <p class="h4 text-danger text-black-shadow">$999.00</p>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <button type="button" onclick="submitForm()">Login</button>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
+            </form>
+            <div class="error-message"></div>
+            <div class="register-link" onclick="location.href = 'registro.html';">¿Nuevo usuario? Regístrate aquí.</div>
+
+            <script>
+                function submitForm() {
+                    var username = $("#username").val();
+                    var password = $("#password").val();
+
+                    if (username === "" || password === "") {
+                        $(".error-message").text("Completa todos los campos.");
+                        return;
+                    }
+
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(username)) {
+                        $(".error-message").text("Formato de correo inválido.");
+                        return;
+                    }
+
+                    if (username.includes("/") || password.includes("/")) {
+                        $(".error-message").text("El correo y la contraseña no deben contener '/'");
+                        return;
+                    }
+
+                    $.ajax({
+    url: "LoginServlet",
+    type: "POST",
+    data: {
+        username: username,
+        password: password
+    },
+    success: function (data) {
+        console.log("Éxito:", data);
+        if (data.trim() === "admin") {
+            alert("Hola Admin");      
+        } else if (data.trim() === "user") {
+            window.location.href = "main.html";
+        } else {
+            $(".error-message").text("Credenciales inválidas. Inténtalo de nuevo.");
+        }
+    },
+    error: function (xhr, textStatus, errorThrown) {
+        console.error("Error:", textStatus, errorThrown);
+        $(".error-message").text("Error en la solicitud. Inténtalo de nuevo.");
+    }
+});
+
+                }
+            </script>
         </div>
-
-        <div class="articulos">
-            
-            <h2 class="title-chafazon articulos-title">Articulos</h2>
-            
-            <div class="articulos-content">
-                
-                
-                <div class="card articulos-item shadow" style="width: 15rem;">
-                    <img src="https://m.media-amazon.com/images/I/71ECtFcFxlL.jpg" class="card-img-top articulos-item-image" alt="...">
-                    <div class="card-body bg-light ">
-                        <h5 class="card-title">Pc gamer</h5>
-                        <p class="card-text articulo-item-price">$15,000</p>
-                        <a href="#" class="btn btn-danger">Comprar</a>
-                    </div>
-                </div>
-                
-                
-                <div class="card articulos-item  shadow" style="width: 15rem;">
-                    <img src="https://m.media-amazon.com/images/I/71Q54HnKxwS._AC_UF1000,1000_QL80_.jpg" class="articulos-item-image card-img-top " alt="...">
-                    <div class="card-body bg-light border">
-                            <h5 class="card-title">Nintendo switch OLED</h5>
-                        <p class="card-text">$5,000</p>
-                        <a href="#" class="btn btn-danger">Comprar</a>
-                    </div>
-                </div>
-                
-                
-                <div class="card articulos-item  shadow" style="width: 15rem;">
-                    <img src="https://m.media-amazon.com/images/I/81Yiw8Zk0uL._AC_UF1000,1000_QL80_.jpg" class="articulos-item-image card-img-top " alt="...">
-                    <div class="card-body bg-light border">
-                        <h5 class="card-title">Nintendo switch zelda</h5>
-                        <p class="card-text">$7,999</p>
-                        <a href="#" class="btn btn-danger">Comprar</a>
-                    </div>
-                </div>
-                
-                
-                <div class="card articulos-item  shadow" style="width: 15rem;">
-                    <img src="https://m.media-amazon.com/images/I/61gimpyy0UL.jpg" class=" articulos-item-image card-img-top" alt="...">
-                    <div class="card-body bg-light border">
-                        <h5 class="card-title">Playstation 5</h5>
-                        <p class="card-text">$10,000</p>
-                        <a href="#" class="btn btn-danger">Comprar</a>
-                    </div>
-                </div>
-                
-                
-                <div class="card articulos-item  shadow" style="width: 15rem;">
-                    <img src="https://i5.walmartimages.com.mx/mg/gm/3pp/asr/183ccffc-0251-490f-95af-6170e030b22d.abe11715af810ddbbd4303c22a7b8a59.jpeg?odnHeight=2000&odnWidth=2000&odnBg=ffffff" class="articulos-item-image card-img-top " alt="...">
-                    <div class="card-body bg-light border">
-                        <h5 class="card-title">Xbox series X</h5>
-                        <p class="card-text">$7,499</p>
-                        <a href="#" class="btn btn-danger">Comprar</a>
-                    </div>
-                </div>
-                
-                
-                <div class="card articulos-item  shadow" style="width: 15rem;">
-                    <img src="https://m.media-amazon.com/images/I/81ci9F952vL._AC_UF894,1000_QL80_.jpg" class=" articulos-item-image card-img-top" alt="...">
-                    <div class="card-body bg-light border">
-                        <h5 class="card-title">Sueter adidas</h5>
-                        <p class="card-text">$450</p>
-                        <a href="#" class="btn btn-danger">Comprar</a>
-                    </div>
-                </div>
-                
-                
-                
-            </div>
-            
-
-        </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
