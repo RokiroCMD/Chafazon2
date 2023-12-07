@@ -125,7 +125,7 @@
     success: function (data) {
         console.log("Éxito:", data);
         if (data.trim() === "admin") {
-            alert("Hola Admin");      
+            window.location.href = "main_admin.jsp";
         } else if (data.trim() === "user") {
             window.location.href = "main.html";
         } else {
