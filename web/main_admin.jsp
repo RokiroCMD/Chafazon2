@@ -100,17 +100,16 @@
                 <h2>CONTROL DE INVENTARIO</h2>
                 <div class="btns-custom">
                     <button type="button" class="btn btn-primary">AGREGAR</button>
-                    <button type="button" class="btn btn-warning">SUPLIR</button>
                     <button type="button" class="btn btn-danger">ELIMINAR</button>
                 </div>
+                
 
                 <div class="content-custom">
-                    <table class="table-custom">
+                    <table class="table-custom" id="tbl-inventarios">
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Descripcion</th>
                                 <th scope="col">Categoria</th>
                                 <th scope="col">Existencias</th>
                                 <th scope="col">Imagen</th>
@@ -126,6 +125,33 @@
                     </table>
                 </div>
 
+                <div id="form-add-inv" class="forms-custom">
+                    
+                    <div class="form-wrapper">
+                        <h3>Agregar producto a inventario</h3>
+                        <div class="form-control form-item">
+                            <label>Nombre </label>
+                            <input type="text" id="txt-name-inv">
+                        </div>
+                        <div class="form-control form-item">
+                            <label>Categoria </label>
+                            <input type="text" id="txt-category-inv">
+                        </div>
+                        <div class="form-control form-item">
+                            <label>Existencias </label>
+                            <input type="text" id="txt-existance-inv">
+                        </div>
+                        <div class="form-item">
+                            <label>Imagen </label>
+                            <input type="file" id="chooser-img-inv">
+                        </div>
+                        <button class="form-submit" id="btn-sbumit-add-inv">AGREGAR</button>
+                    </div>
+                    
+                    <img src=""  alt="" id="img-add-inv"/>
+                    
+                </div>
+                
             </div>
 
             <div id="section-articulos" class="content">

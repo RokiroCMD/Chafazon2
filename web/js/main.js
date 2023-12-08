@@ -13,9 +13,12 @@ function actualizarDinero() {
     $.ajax({
         accept: "application/x-www-form-urlencoded",
         method: "POST",
-        url: "getDinero"
+        url: "ControladorUsuarios",
+        data: {
+            option: "consultarDinero"
+        }
     }).done(function (respuesta) {
-        fondos_texto.innerHTML = "$"+respuesta;
+        fondos_texto.innerHTML = "$" + respuesta;
     });
 
 }
@@ -27,9 +30,12 @@ function agregarDinero() {
     $.ajax({
         accept: "application/x-www-form-urlencoded",
         method: "POST",
-        url: "agregarDinero"
+        url: "ControladorUsuarios",
+        data: {
+            option: "agregarDinero"            
+        }
     }).done(function (respuesta) {
-        fondos_texto.innerHTML = "$"+respuesta;
+        fondos_texto.innerHTML = "$" + respuesta;
     });
 
 }
@@ -39,7 +45,10 @@ function cerrarSesion() {
     $.ajax({
         accept: "application/x-www-form-urlencoded",
         method: "POST",
-        url: "LogOutServlet"
+        url: "ControladorUsuarios",
+        data: {
+            option: "cerrarSesionUsuario" 
+        }
     }).done(function (respuesta) {
         window.location.href = "index.html";
     });
@@ -62,14 +71,14 @@ function crearArticuloItem(id, imageUrl, nombre, precio) {
 
 }
 
-function desplegarInfo(){
+function desplegarInfo() {
     window.location.href = "UsuarioInfo.html";
 }
 
 window.onload = function () {
-    
-    
-    
+
+
+
     crearArticuloItem("PCG1", "https://m.media-amazon.com/images/I/71ECtFcFxlL.jpg", "PC gamer", 15000);
     crearArticuloItem("XBOXSS", "https://i5.walmartimages.com.mx/mg/gm/3pp/asr/183ccffc-0251-490f-95af-6170e030b22d.abe11715af810ddbbd4303c22a7b8a59.jpeg?odnHeight=2000&odnWidth=2000&odnBg=ffffff", "Xbox Series S", 7000);
     crearArticuloItem("PS5FAT", "https://m.media-amazon.com/images/I/61gimpyy0UL.jpg", "Playstation 5", 9800);
@@ -90,7 +99,7 @@ window.onload = function () {
         alert(e.srcElement.id);
     }
 
-    
+
 
 
 }

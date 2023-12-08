@@ -132,9 +132,62 @@ body{
 
 #section-inventarios .content-custom{
     display: flex;
+    height: 400px;
     max-height: 400px;
     max-width: 100%;
     overflow-y: scroll;
     overflow-x: scroll;
+}
+
+#section-inventarios .forms-custom{
+    display: flex;
+    position: relative;
+    top: 100px;
+    background-color: transparent;
+    border-radius: 20px;
+    border: 5px solid #bababa;
+    width: 100%;
+    height: 500px;
+    flex-direction: row;
+    
+}
+
+#section-inventarios .form-wrapper{
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #eeeeee;
+    border-radius: 15px;
+}
+
+#section-inventarios .form-wrapper .form-item{
+    display: flex;
+    flex-direction: column; 
+}
+
+#section-inventarios .form-wrapper .form-item input{
+    border: none;
+    border-bottom: 2px solid #676db8;
+    outline: none;
+}
+
+#section-inventarios .form-wrapper .form-submit{
+    margin-top: 10px;
+    height: 50px;
+    background-color: #007bff;
+    color: WHITE;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+}
+
+#section-inventarios .forms-custom #img-add-inv{
+    background-color: transparent;
+    min-width: 60%;
+    min-height: 100%;
+    max-width: 60%;
+    max-height: 100%;
 }
 

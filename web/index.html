@@ -116,9 +116,10 @@
                     }
 
                     $.ajax({
-    url: "LoginServlet",
+    url: "ControladorUsuarios",
     type: "POST",
     data: {
+        option:"iniciarSesionUsuario",
         username: username,
         password: password
     },

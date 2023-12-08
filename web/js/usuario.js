@@ -11,7 +11,10 @@ function actualizarDinero() {
     $.ajax({
         accept: "application/x-www-form-urlencoded",
         method: "POST",
-        url: "getDinero"
+        url: "ControladorUsuarios",
+        data: {
+            option: "consultarDinero" 
+        }
     }).done(function (respuesta) {
         fondos_texto.innerHTML = "$" + respuesta;
     });
@@ -25,7 +28,10 @@ function agregarDinero() {
     $.ajax({
         accept: "application/x-www-form-urlencoded",
         method: "POST",
-        url: "agregarDinero"
+        url: "ControladorUsuarios",
+        data: {
+            option: "agregarDinero"            
+        }
     }).done(function (respuesta) {
         fondos_texto.innerHTML = "$" + respuesta;
     });
@@ -33,22 +39,13 @@ function agregarDinero() {
 }
 
 function cerrarSesion() {
-
     $.ajax({
         accept: "application/x-www-form-urlencoded",
         method: "POST",
-        url: "LogOutServlet"
-    }).done(function (respuesta) {
-        window.location.href = "index.html";
-    });
-
-}
-
-function cerrarSesion() {
-    $.ajax({
-        accept: "application/x-www-form-urlencoded",
-        method: "POST",
-        url: "LogOutServlet"
+        url: "ControladorUsuarios",
+        data: {
+            option: "cerrarSesionUsuario" 
+        }
     }).done(function (respuesta) {
         window.location.href = "index.html";
     });
@@ -56,7 +53,7 @@ function cerrarSesion() {
 
 function cargarValores() {
     $(document).ready(function () {
-        $.get("ObtenerInfoUsuarioServlet", function (userInfo) {
+        $.get("ControladorUsuarios", {option:"consultarInfoUsuario"} ,function (userInfo) {
             console.log("Información del usuario:", userInfo);
 
             $("#name").text(userInfo.Nombre);
@@ -81,6 +78,6 @@ window.onload = function () {
     logout.addEventListener("click", cerrarSesion);
     fondos.addEventListener("click", agregarDinero);
     cerrar.addEventListener("click", cerrarSesion);
-}
+};
 
 

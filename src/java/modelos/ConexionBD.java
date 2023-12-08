@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -88,5 +90,57 @@ public class ConexionBD {
             conexionSQLServer.close();
         }
     }
+    
+    public List<Inventario> consultarInvntario(){
+        String sql = "SELECT * FROM Inventario";
+        try {
+        PreparedStatement sentencia = conexionSQLServer.prepareStatement(sql);
+        ResultSet rs = sentencia.executeQuery();
+            List<Inventario> invs = new ArrayList<>();
+            while(rs.next()){   
+                int id = rs.getInt("Id");
+                String nombre = rs.getString("Nombre");
+                String categoria = rs.getString("Categoria");
+                int existencias = rs.getInt("Existencias");
+                String imagen = rs.getString("Imagen");
+                
+                Inventario inv = new Inventario(nombre, categoria, existencias, imagen);
+                invs.add(inv);
+            }
+            return invs;
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null; 
+    }
+    
+    public int agregarInventario(String nombre, String categoria, int existencias, String imagen){
+        String sql = "INSERT INTO Inventario ( Nombre ,Categoria ,Existencias ,Imagen) VALUES (? ,? ,? ,?)";
+        try {
+            PreparedStatement sentencia = conexionSQLServer.prepareStatement(sql);
+            sentencia.setString(1, nombre);
+            sentencia.setString(2, categoria);
+            sentencia.setInt(3, existencias);
+            sentencia.setString(4, imagen);
+            return sentencia.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public int eliminarInventario(int id){
+        String sql = "DELETE FROM Inventario WHERE Id = ?";
+        try {
+            PreparedStatement sentencia = conexionSQLServer.prepareStatement(sql);
+            sentencia.setInt(1, id);
+            return sentencia.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
 
 }
