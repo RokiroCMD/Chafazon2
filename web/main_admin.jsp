@@ -70,63 +70,67 @@
 
             <div id="section-usuarios" class="content">
                 <h2>CONTROL DE USUARIOS</h2>
-                <div class="btns-custom">
-                    <button type="button" class="btn btn-primary">AGREGAR</button>
-                    <button type="button" class="btn btn-danger">ELIMINAR</button>
-                </div>
 
                 <div class="content-custom">
-                    <table class="table-custom">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Password</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Alex</td>
-                                <td>Pedro</td>
-                                <td>123</td>
-                            </tr>
-                        </tbody>
+                    <table class="table-custom" id="tbl-usuarios">
+
                     </table>
                 </div>
 
+                <div id="form-add-user" class="forms-custom">
+
+                    <div class="form-wrapper">
+                        <h3>Agregar usuario nuevo</h3>
+                        <div class="form-control form-item">
+                            <label>Nombre </label>
+                            <input type="text" id="txt-name-user">
+                        </div>
+                        <div class="form-control form-item">
+                            <label>Correo </label>
+                            <input type="text" id="txt-correo-user">
+                        </div>
+                        <div class="form-control form-item">
+                            <label>Contraseña </label>
+                            <input type="text" id="txt-password-user">
+                        </div>
+                        <div class="form-item">
+                            <label class="checkbox-text">Es admininstrador </label>
+                            <input type="checkbox" title="Es admininstrador " id="check-admin-user">
+                        </div>
+                        <button class="form-submit" id="btn-sbumit-add-user">AGREGAR</button>
+                    </div>
+
+
+                </div>
+                
+                <div id="form-remove-user" class="forms-custom">
+                    <div class="form-wrapper">
+                        <h3>Eliminar usuario</h3>
+                        <div class="form-control form-item">
+                            <label>ID </label>
+                            <input type="text" id="txt-id-user">
+                        </div>
+                        <button class="form-submit" id="btn-sbumit-remove-user">ELIMINAR</button>
+                    </div>
+                </div>
+
+
+
             </div>
+
 
             <div id="section-inventarios" class="content">
                 <h2>CONTROL DE INVENTARIO</h2>
-                <div class="btns-custom">
-                    <button type="button" class="btn btn-primary">AGREGAR</button>
-                    <button type="button" class="btn btn-danger">ELIMINAR</button>
-                </div>
-                
+
 
                 <div class="content-custom">
                     <table class="table-custom" id="tbl-inventarios">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Categoria</th>
-                                <th scope="col">Existencias</th>
-                                <th scope="col">Imagen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Alex</td>
-                                <td>Pedro</td>
-                                <td>123</td>
-                            </tr>
-                        </tbody>
+
                     </table>
                 </div>
 
                 <div id="form-add-inv" class="forms-custom">
-                    
+
                     <div class="form-wrapper">
                         <h3>Agregar producto a inventario</h3>
                         <div class="form-control form-item">
@@ -147,11 +151,22 @@
                         </div>
                         <button class="form-submit" id="btn-sbumit-add-inv">AGREGAR</button>
                     </div>
-                    
+
                     <img src=""  alt="" id="img-add-inv"/>
-                    
+
                 </div>
-                
+
+                <div id="form-remove-inv" class="forms-custom">
+                    <div class="form-wrapper">
+                        <h3>Eliminar producto del inventario</h3>
+                        <div class="form-control form-item">
+                            <label>ID </label>
+                            <input type="text" id="txt-id-inv">
+                        </div>
+                        <button class="form-submit" id="btn-sbumit-remove-inv">ELIMINAR</button>
+                    </div>
+                </div>
+
             </div>
 
             <div id="section-articulos" class="content">

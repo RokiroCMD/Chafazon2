@@ -83,9 +83,12 @@ body{
     width: 100%;
     text-align: center;
     font-size: 20px;
-    background-color: #e2e8ef;
+    background-color: #fff;
     border-radius: 10px
     
+}
+#section-usuarios .table-custom{
+    height: 100px;
 }
 
 .table-custom thead{
@@ -130,7 +133,7 @@ body{
     border-bottom: 5px solid #b87616;
 }
 
-#section-inventarios .content-custom{
+.content-custom{
     display: flex;
     height: 400px;
     max-height: 400px;
@@ -139,20 +142,20 @@ body{
     overflow-x: scroll;
 }
 
-#section-inventarios .forms-custom{
+.forms-custom{
     display: flex;
     position: relative;
-    top: 100px;
+    top: 150px;
     background-color: transparent;
     border-radius: 20px;
     border: 5px solid #bababa;
     width: 100%;
     height: 500px;
     flex-direction: row;
-    
+    margin-bottom: 20px;
 }
 
-#section-inventarios .form-wrapper{
+.form-wrapper{
     padding: 20px;
     height: 100%;
     display: flex;
@@ -162,18 +165,18 @@ body{
     border-radius: 15px;
 }
 
-#section-inventarios .form-wrapper .form-item{
+.form-wrapper .form-item{
     display: flex;
     flex-direction: column; 
 }
 
-#section-inventarios .form-wrapper .form-item input{
+.form-wrapper .form-item input{
     border: none;
     border-bottom: 2px solid #676db8;
     outline: none;
 }
 
-#section-inventarios .form-wrapper .form-submit{
+ .form-wrapper .form-submit{
     margin-top: 10px;
     height: 50px;
     background-color: #007bff;
@@ -191,3 +194,35 @@ body{
     max-height: 100%;
 }
 
+#section-inventarios #form-remove-inv .form-wrapper {
+    width: 100%;
+}
+
+#section-usuarios .form-wrapper {
+    width: 100%;
+}
+
+#section-usuarios #form-add-user .form-wrapper .form-submit{
+    background-color: #2eb352;
+}
+
+#section-usuarios #form-remove-user .form-wrapper .form-submit{
+    background-color: #ad101f;
+}
+#section-usuarios #form-remove-user .form-wrapper input{
+    border-bottom: 2px solid #ad101f;
+}
+
+.checkbox-text{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+
+#section-inventarios #form-remove-inv .form-wrapper .form-submit{
+    background-color: #ad101f;
+}
+#section-inventarios #form-remove-inv .form-wrapper input{
+    border-bottom: 2px solid #ad101f;
+}

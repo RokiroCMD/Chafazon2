@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
@@ -20,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelos.ConexionBD;
+import modelos.Usuario;
+import org.json.JSONObject;
 
 /**
  *
@@ -46,6 +51,35 @@ public class ControladorUsuarios extends HttpServlet {
             String option = request.getParameter("option");
 
             switch (option) {
+                case "consultarJSON":
+
+                    ConexionBD conexion = null;
+                    try {
+                        conexion = new ConexionBD();
+                    } catch (ClassNotFoundException | SQLException ex) {
+                        Logger.getLogger(ControladorInventario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    List<Usuario> users;
+
+                    try {
+                        users = conexion.consultarUsuariosTabla();
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        JSONObject json = new JSONObject();
+                        for (Usuario user : users) {
+                            Map<String, Object> mapa1 = new HashMap<>();
+                            mapa1.put("nombre", user.getNombre());
+                            mapa1.put("correo", user.getCorreo());
+                            mapa1.put("contraseña", user.getPassword());
+                            mapa1.put("saldo", user.getSaldo());
+                            json.put(String.valueOf(user.getId()), mapa1);
+                        }
+                        out.println(json.toString());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ControladorUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    break;
                 case "agregarUsuario":
                     String newName = request.getParameter("newName");
                     String newUsername = request.getParameter("newUsername");
@@ -73,7 +107,7 @@ public class ControladorUsuarios extends HttpServlet {
                     int i = (int) session.getAttribute("id");
 
                     try {
-                        ConexionBD conexion = new ConexionBD();
+                        conexion = new ConexionBD();
                         double result = conexion.consultarSaldo(i);
                         System.out.println("Consultar " + result);
                         out.println(result);
@@ -88,7 +122,7 @@ public class ControladorUsuarios extends HttpServlet {
                     i = (int) session.getAttribute("id");
 
                     try {
-                        ConexionBD conexion = new ConexionBD();
+                        conexion = new ConexionBD();
                         out.println(conexion.agregarFondos(i));
                     } catch (ClassNotFoundException | SQLException ex) {
                         out.println("0.00");
@@ -184,7 +218,7 @@ public class ControladorUsuarios extends HttpServlet {
 
         }
     }
-    
+
     private String obtenerCorreoUsuarioDesdeSesion(HttpServletRequest request) {
         HttpSession session = request.getSession();
         return (String) session.getAttribute("correoUsuario");

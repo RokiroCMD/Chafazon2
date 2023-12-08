@@ -73,7 +73,7 @@ public class ControladorInventario extends HttpServlet {
                         mapa1.put("categoria", inv.getCategoria());
                         mapa1.put("existencias", inv.getExistencias());
                         mapa1.put("imagen", inv.getImagen());
-                        json.put(String.valueOf(inv.getId()),mapa1);
+                        json.put(String.valueOf(inv.getId()), mapa1);
                     }
                     out.println(json.toString());
             }

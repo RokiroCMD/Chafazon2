@@ -30,6 +30,25 @@ public class ConexionBD {
         sentencia.setString(2, contraseña);
         return sentencia.executeQuery();
     }
+    
+    public List<Usuario> consultarUsuariosTabla() throws SQLException {
+        String sql = "SELECT * FROM Usuarios";
+        PreparedStatement sentencia = conexionSQLServer.prepareStatement(sql);
+        ResultSet rs =  sentencia.executeQuery();
+        List<Usuario> usuarios = new ArrayList<>();
+        while(rs.next()){   
+                int id = rs.getInt("ID");
+                String nombre = rs.getString("Nombre");
+                String correo = rs.getString("Correo");
+                String password = rs.getString("Contraseña");
+                int saldo = rs.getInt("Saldo");
+                boolean admin = rs.getBoolean("isAdmin");
+                
+                Usuario usuario = new Usuario(id, nombre, correo, password, saldo, admin);
+                usuarios.add(usuario);
+            }
+            return usuarios;
+    }
 
     public double consultarSaldo(int i) throws SQLException {
         String sql = "SELECT Saldo FROM Usuarios WHERE ID = ?";
@@ -104,7 +123,7 @@ public class ConexionBD {
                 int existencias = rs.getInt("Existencias");
                 String imagen = rs.getString("Imagen");
                 
-                Inventario inv = new Inventario(nombre, categoria, existencias, imagen);
+                Inventario inv = new Inventario(id,nombre, categoria, existencias, imagen);
                 invs.add(inv);
             }
             return invs;

@@ -6,6 +6,7 @@ var btn_articulos = document.getElementById("btn-articulos");
 var btn_ventas = document.getElementById("btn-ventas");
 
 var table_inventarios = document.getElementById("tbl-inventarios");
+var table_usuarios = document.getElementById("tbl-usuarios");
 
 var section_usuarios = document.getElementById("section-usuarios");
 var section_inventarios = document.getElementById("section-inventarios");
@@ -13,12 +14,14 @@ var section_articulos = document.getElementById("section-articulos");
 var section_ventas = document.getElementById("section-ventas");
 
 var name_inv = document.getElementById("txt-name-inv");
+var id_inv = document.getElementById("txt-id-inv");
 var category_inv = document.getElementById("txt-category-inv");
 var existance_inv = document.getElementById("txt-existance-inv");
 var chooser_inv = document.getElementById("chooser-img-inv");
 var img_add_inv = document.getElementById("img-add-inv");
 var img_inv = null;
 var btn_submit_inv = document.getElementById("btn-sbumit-add-inv");
+var btn_remove_inv = document.getElementById("btn-sbumit-remove-inv");
 
 var seccion = -1;
 
@@ -32,6 +35,59 @@ function cerrarSesion() {
         window.location.href = "./index.html";
     });
 
+}
+
+function cargarTablaUsuarios() {
+    $.ajax({
+        url: 'ControladorUsuarios',
+        method: 'POST',
+        dataType: 'json',
+        data: {
+            option: "consultarJSON"
+        },
+        success: function (data) {
+            // Manejar la respuesta JSON aquí
+
+            while (table_usuarios.firstChild) {
+                table_usuarios.removeChild(table_usuarios.firstChild);
+            }
+
+            table_usuarios.innerHTML += `<thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Contraseña</th>
+                                <th scope="col">Saldo</th>
+                            </tr>
+                        </thead>`;
+
+            let content = ``;
+
+            for (var id in data) {
+                console.log(id);
+                if (data.hasOwnProperty(id)) {
+                    var item = data[id];
+                    content += `<tr>
+                                <td>${id}</td>
+                                <td>${item.nombre}</td>
+                                <td>${item.correo}</td>
+                                <td>${item.contraseña}</td>
+                                <td>${item.saldo}</td>
+                            </tr>`
+
+                    // Aquí puedes hacer algo más con los datos, como agregarlos a la página HTML
+                }
+            }
+
+            table_usuarios.innerHTML += `<tbody>` + content + `</tbody>`;
+
+
+        },
+        error: function (error) {
+            console.error('Error en la solicitud AJAX:', error);
+        }
+    });
 }
 
 
@@ -60,21 +116,26 @@ function cargarTablaInventarios() {
                             </tr>
                         </thead>`;
 
+            let content = ``;
+
             for (var id in data) {
+                console.log(id);
                 if (data.hasOwnProperty(id)) {
                     var item = data[id];
+                    content += `<tr>
+                                <td>${id}</td>
+                                <td>${item.nombre}</td>
+                                <td>${item.categoria}</td>
+                                <td>${item.existencias}</td>
                     
-                    console.log('ID:', id);
-                    console.log('Nombre:', item.nombre);
-                    console.log('Categoría:', item.categoria);
-                    console.log('Existencias:', item.existencias);
-                    console.log('Imagen:', item.imagen);
-                    console.log('--------------------------');
-                    
+                                <td><img src="${item.imagen}" width="128px" height="128px;"/></td>
+                            </tr>`
 
                     // Aquí puedes hacer algo más con los datos, como agregarlos a la página HTML
                 }
             }
+
+            table_inventarios.innerHTML += `<tbody>` + content + `</tbody>`;
 
 
         },
@@ -93,6 +154,7 @@ function cambiarUsuarios() {
         seccion = 0;
         section_usuarios.scrollIntoView();
     }
+    cargarTablaUsuarios();
 
 }
 
@@ -151,10 +213,48 @@ function procesarArchivo(event) {
 function guardarInventario(event) {
     let name = name_inv.value;
     let category = category_inv.value;
-    let exist = existance_inv.value;
+    let exist = parseInt(existance_inv.value);
+    
+    $.ajax({
+        accept: "application/x-www-form-urlencoded",
+        method: "POST",
+        url: "ControladorInventario",
+        data: {
+            option: "agregar",
+            nombre: name, 
+            categoria: category, 
+            existencias: exist, 
+            imagen: img_inv 
+        }
+    }).done(function (respuesta) {
+        cargarTablaInventarios();
+        name_inv.value = "";
+        category_inv.value = "";
+        existance_inv.value = "";
+        img_add_inv.src = "";
+        chooser_inv.value = null;
+        section_inventarios.scrollIntoView();
+    });
 
+}
 
-
+function removerInventario(){
+    
+    let id = parseInt(id_inv.value); 
+    
+    $.ajax({
+        accept: "application/x-www-form-urlencoded",
+        method: "POST",
+        url: "ControladorInventario",
+        data: {
+            option: "eliminar",
+            idEliminar: id
+        }
+    }).done(function (respuesta) {
+        cargarTablaInventarios();
+        id_inv.value = "";
+        section_inventarios.scrollIntoView();
+    });
 }
 
 
@@ -168,4 +268,5 @@ window.onload = function () {
 
     chooser_inv.addEventListener("change", procesarArchivo, false);
     btn_submit_inv.addEventListener("click", guardarInventario);
+    btn_remove_inv.addEventListener("click", removerInventario);
 };
