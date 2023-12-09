@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Administracion Chafazon</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="./css/main_admin.css"/>
     </head>
@@ -102,18 +102,17 @@
 
 
                 </div>
-                
+
                 <div id="form-remove-user" class="forms-custom">
                     <div class="form-wrapper">
                         <h3>Eliminar usuario</h3>
                         <div class="form-control form-item">
                             <label>ID </label>
-                            <input type="text" id="txt-id-user">
+                            <input type="number" id="txt-id-user">
                         </div>
                         <button class="form-submit" id="btn-sbumit-remove-user">ELIMINAR</button>
                     </div>
                 </div>
-
 
 
             </div>
@@ -143,7 +142,7 @@
                         </div>
                         <div class="form-control form-item">
                             <label>Existencias </label>
-                            <input type="text" id="txt-existance-inv">
+                            <input type="number" id="txt-existance-inv">
                         </div>
                         <div class="form-item">
                             <label>Imagen </label>
@@ -161,7 +160,7 @@
                         <h3>Eliminar producto del inventario</h3>
                         <div class="form-control form-item">
                             <label>ID </label>
-                            <input type="text" id="txt-id-inv">
+                            <input type="number" id="txt-id-inv">
                         </div>
                         <button class="form-submit" id="btn-sbumit-remove-inv">ELIMINAR</button>
                     </div>
@@ -170,12 +169,76 @@
             </div>
 
             <div id="section-articulos" class="content">
-                <p>Articulos</p>
+                <h2>Control de articulos</h2>
+
+                <div class="content-custom">
+                    <table class="table-custom" id="tbl-articulos">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Imagen</th>
+                                <th scope="col">Existencia</th>
+                                <th scope="col">enOferta</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                
+                <div id="form-add-art" class="forms-custom">
+
+                    <div class="form-wrapper">
+                        <h3>Agregar articulo a la tienda</h3>
+                        <div class="form-control form-item">
+                            <label>ID </label>
+                            <input type="number" id="txt-id-art">
+                        </div>
+                        <div class="form-control form-item">
+                            <label>Precio </label>
+                            <input type="number" id="txt-precio-art">
+                        </div>
+                        <div class="form-item">
+                            <label class="checkbox-text">En oferta </label>
+                            <input type="checkbox" id="check-oferta-art">
+                        </div>
+                        <button class="form-submit" id="btn-sbumit-add-art">AGREGAR</button>
+                    </div>
+
+                    <img src=""  alt="" id="img-add-art"/>
+
+                </div>
+                
+                <div id="form-remove-art" class="forms-custom">
+                    <div class="form-wrapper">
+                        <h3>Eliminar articulo de la tienda</h3>
+                        <div class="form-control form-item">
+                            <label>ID </label>
+                            <input type="number" id="txt-id-remove-art">
+                        </div>
+                        <button class="form-submit" id="btn-sbumit-remove-art">ELIMINAR</button>
+                    </div>
+                </div>
 
             </div>
 
             <div id="section-ventas" class="content">
-                <p>Ventas</p>
+                <h2>Ventas totales</h2>
+
+                <div class="content-custom">
+                    <table class="table-custom" id="tbl-ventas">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Comprador</th>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Monto</th>
+                                <th scope="col">Imagen</th>
+                                <th scope="col">Fecha</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
 
             </div>
 

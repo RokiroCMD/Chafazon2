@@ -91,6 +91,14 @@ body{
     height: 100px;
 }
 
+#section-articulos .table-custom{
+    height: 100px;
+}
+
+#section-ventas .table-custom{
+    height: 100px;
+}
+
 .table-custom thead{
     border-radius: 10px;
     background-color: #007bff;
@@ -131,6 +139,16 @@ body{
 #section-inventarios .content-custom .table-custom thead{
     background-color: #f5cf40;
     border-bottom: 5px solid #b87616;
+}
+
+#section-articulos .content-custom .table-custom thead{
+    background-color: #ad101f;
+    border-bottom: 5px solid #6e0d0d;
+}
+
+#section-ventas .content-custom .table-custom thead{
+    background-color: #0cc12c;
+    border-bottom: 5px solid #0d6e1e;
 }
 
 .content-custom{
@@ -198,6 +216,10 @@ body{
     width: 100%;
 }
 
+#section-articulos #form-remove-art .form-wrapper {
+    width: 100%;
+}
+
 #section-usuarios .form-wrapper {
     width: 100%;
 }
@@ -210,6 +232,13 @@ body{
     background-color: #ad101f;
 }
 #section-usuarios #form-remove-user .form-wrapper input{
+    border-bottom: 2px solid #ad101f;
+}
+
+#section-articulos #form-remove-art .form-wrapper .form-submit{
+    background-color: #ad101f;
+}
+#section-articulos #form-remove-art .form-wrapper input{
     border-bottom: 2px solid #ad101f;
 }
 

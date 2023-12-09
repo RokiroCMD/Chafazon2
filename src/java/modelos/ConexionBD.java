@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -133,6 +134,44 @@ public class ConexionBD {
         return null; 
     }
     
+    public Inventario obtenerInfoInventario(int id){
+        String sql = "SELECT * FROM Inventario where Id = ?";
+        PreparedStatement sentencia;
+        try {
+            sentencia = conexionSQLServer.prepareStatement(sql);
+            sentencia.setInt(1, id);
+            ResultSet rs = sentencia.executeQuery();
+            while (rs.next()) {
+               String nombre = rs.getString("Nombre"); 
+               String categoria = rs.getString("Categoria"); 
+               int existencias = rs.getInt("Existencias"); 
+               String img = rs.getString("Imagen"); 
+               Inventario inv = new Inventario(nombre, categoria, existencias, img);
+               return inv;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public String consultarImagenInventario(int id){
+        String sql = "SELECT Imagen FROM Inventario where Id = ?";
+        PreparedStatement sentencia;
+        try {
+            sentencia = conexionSQLServer.prepareStatement(sql);
+            sentencia.setInt(1, id);
+            ResultSet rs = sentencia.executeQuery();
+            while (rs.next()) {
+                String img = rs.getString("Imagen"); 
+               return img;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    
     public int agregarInventario(String nombre, String categoria, int existencias, String imagen){
         String sql = "INSERT INTO Inventario ( Nombre ,Categoria ,Existencias ,Imagen) VALUES (? ,? ,? ,?)";
         try {
@@ -155,6 +194,101 @@ public class ConexionBD {
             PreparedStatement sentencia = conexionSQLServer.prepareStatement(sql);
             sentencia.setInt(1, id);
             return sentencia.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int agregarArticulo(String nombre, String categoria, int existencias, String imagen, int precio, boolean enOferta){
+        String sql = "INSERT INTO Articulos (Nombre , Categoria, Existencias, Imagen, Precio, EnOferta) VALUES (?,?,?,?,?,?)";
+        try {
+            PreparedStatement sentencia = conexionSQLServer.prepareStatement(sql);
+            sentencia.setString(1, nombre);
+            sentencia.setString(2, categoria);
+            sentencia.setInt(3, existencias);
+            sentencia.setString(4, imagen);
+            sentencia.setInt(5, precio);
+            sentencia.setBoolean(6, enOferta);
+            return sentencia.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public int eliminarArticulo(int id){
+        String sql = "DELETE FROM Articulos WHERE Id = ?";
+        try {
+            PreparedStatement sentencia = conexionSQLServer.prepareStatement(sql);
+            sentencia.setInt(1, id);
+            return sentencia.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public List<Articulo> consultarArticulo() {
+        String sql = "SELECT * FROM Articulos";
+        try {
+        PreparedStatement sentencia = conexionSQLServer.prepareStatement(sql);
+        ResultSet rs = sentencia.executeQuery();
+            List<Articulo> articulos = new ArrayList<>();
+            while(rs.next()){   
+                int id = rs.getInt("Id");
+                String nombre = rs.getString("Nombre");
+                String categoria = rs.getString("Categoria");
+                int existencias = rs.getInt("Existencias");
+                String imagen = rs.getString("Imagen");
+                int precio = rs.getInt("Precio");
+                boolean enOferta = rs.getBoolean("EnOferta");
+                
+                Articulo art = new Articulo(id, nombre, categoria, existencias, imagen, precio, enOferta);
+                articulos.add(art);
+            }
+            return articulos;
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null; 
+    }
+    
+    public List<Venta> consultarVentas(){
+        String sql = "SELECT * FROM Ventas";
+        try {
+        PreparedStatement sentencia = conexionSQLServer.prepareStatement(sql);
+        ResultSet rs = sentencia.executeQuery();
+            List<Venta> ventas = new ArrayList<>();
+            while(rs.next()){   
+                int id = rs.getInt("Id");
+                String nombreComprador = rs.getString("NombreComprador");
+                String nombreProducto = rs.getString("NombreProducto");
+                int monto = rs.getInt("Monto");
+                String imagen = rs.getString("ImagenProducto");
+                Date fecha = rs.getDate("Fecha");
+                                
+                Venta venta = new Venta(id, nombreComprador, nombreProducto, imagen, monto, fecha);
+                ventas.add(venta);
+            }
+            return ventas;
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null; 
+    }
+    
+    public int agregarMonto(String nombreComprador, String nombreProducto, int monto, String imagen){
+        String sql = "INSERT INTO Ventas (NombreComprador ,NombreProducto ,Monto ,ImagenProducto) VALUES (?,?,?,?)";
+        try {
+            PreparedStatement sentencia = conexionSQLServer.prepareStatement(sql);
+            sentencia.setString(1, nombreComprador);
+            sentencia.setString(2, nombreProducto);
+            sentencia.setInt(3, monto);
+            sentencia.setString(4, imagen);
+            return sentencia.executeUpdate();
+            
         } catch (SQLException ex) {
             Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
         }

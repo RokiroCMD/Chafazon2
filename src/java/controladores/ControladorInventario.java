@@ -54,7 +54,13 @@ public class ControladorInventario extends HttpServlet {
                 case "agregar":
                     String nombre = request.getParameter("nombre");
                     String categoria = request.getParameter("categoria");
-                    int existencias = Integer.parseInt(request.getParameter("existencias"));
+                    int existencias = 0;
+                    try{
+                        existencias = Integer.parseInt(request.getParameter("existencias"));
+                    } catch(Exception e){
+                        out.println(0);
+                        return;
+                    }
                     String imagen = request.getParameter("imagen");
                     out.println(conexion.agregarInventario(nombre, categoria, existencias, imagen));
                     break;
@@ -76,6 +82,44 @@ public class ControladorInventario extends HttpServlet {
                         json.put(String.valueOf(inv.getId()), mapa1);
                     }
                     out.println(json.toString());
+                    break;
+                case "consultarImagen":
+                    int id = 0;
+                    try{
+                        id = Integer.parseInt(request.getParameter("id"));
+                    } catch (Exception e){
+                        System.out.println(id);
+                        out.println("");
+                        return;
+                    }
+                    String img = conexion.consultarImagenInventario(id); 
+                    out.println(img);
+                    break;
+                case "consultarInfo":
+                    id = 0;
+                    try{
+                        id = Integer.parseInt(request.getParameter("id"));
+                    } catch (Exception e){
+                        System.out.println(id);
+                        out.println("error");
+                        return;
+                    }
+                    
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    
+                    Inventario inv = conexion.obtenerInfoInventario(id);
+                    
+                    json = new JSONObject();
+                    json.put("nombre", inv.getNombre());
+                    json.put("categoria", inv.getCategoria());
+                    json.put("existencias", inv.getExistencias());
+                    json.put("imagen", inv.getImagen());
+                    
+                    out.println(json.toString());
+                    
+                    
+                    break;
             }
         }
     }

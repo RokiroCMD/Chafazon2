@@ -28,6 +28,10 @@
 
             .login-container h2 {
                 color: #333;
+                font-size: 48px;
+                font-weight: 600;
+                border-bottom: 1px solid #333;
+                text-transform: uppercase;
             }
 
             .login-form {
@@ -41,6 +45,7 @@
 
             .form-group label {
                 display: block;
+                text-align: start;
                 margin-bottom: 5px;
                 color: #555;
             }
@@ -54,7 +59,8 @@
             }
 
             .form-group button {
-                background-color: #ff0000;
+                background: linear-gradient(to right, #ff6666, #cc0000);
+                width: 100%;
                 color: #fff;
                 padding: 10px;
                 border: none;
@@ -77,14 +83,14 @@
     </head>
     <body>
         <div class="login-container">
-            <h2>Chafazon.com</h2>
+            <h2>Chafazon</h2>
             <form class="login-form" id="loginForm">
                 <div class="form-group">
-                    <label for="username">Username:</label>
+                    <label for="username">Correo electronico</label>
                     <input type="text" id="username" name="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password:</label>
+                    <label for="password">Contraseña</label>
                     <input type="password" id="password" name="password" required>
                 </div>
                 <div class="form-group">
@@ -95,6 +101,40 @@
             <div class="register-link" onclick="location.href = 'registro.html';">¿Nuevo usuario? Regístrate aquí.</div>
 
             <script>
+
+                function getCookie(name) {
+                    var value = "; " + document.cookie;
+                    var parts = value.split("; " + name + "=");
+                    if (parts.length === 2)
+                        return parts.pop().split(";").shift();
+                }
+
+                function setCookie(name, value, days) {
+                    console.log("cookie");
+                    var expires = "";
+                    if (days) {
+                        var date = new Date();
+                        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                        expires = "; expires=" + date.toUTCString();
+                    }
+                    document.cookie = name + "=" + value + expires + "; path=/";
+                }
+
+                $(document).ready(function () {
+                    var savedUsername = getCookie("username");
+                    var savedPassword = getCookie("password");
+
+                    if (savedUsername) {
+                        $("#username").val(savedUsername);
+                    } else {
+                        console.log("No hay usuario");
+                    }
+
+                    if (savedPassword) {
+                        $("#password").val(savedPassword);
+                    }
+                });
+
                 function submitForm() {
                     var username = $("#username").val();
                     var password = $("#password").val();
@@ -115,29 +155,33 @@
                         return;
                     }
 
+
+
                     $.ajax({
-    url: "ControladorUsuarios",
-    type: "POST",
-    data: {
-        option:"iniciarSesionUsuario",
-        username: username,
-        password: password
-    },
-    success: function (data) {
-        console.log("Éxito:", data);
-        if (data.trim() === "admin") {
-            window.location.href = "main_admin.jsp";
-        } else if (data.trim() === "user") {
-            window.location.href = "main.html";
-        } else {
-            $(".error-message").text("Credenciales inválidas. Inténtalo de nuevo.");
-        }
-    },
-    error: function (xhr, textStatus, errorThrown) {
-        console.error("Error:", textStatus, errorThrown);
-        $(".error-message").text("Error en la solicitud. Inténtalo de nuevo.");
-    }
-});
+                        url: "ControladorUsuarios",
+                        type: "POST",
+                        data: {
+                            option: "iniciarSesionUsuario",
+                            username: username,
+                            password: password
+                        },
+                        success: function (data) {
+                            console.log("Éxito:", data);
+                            setCookie("username", username, 7);
+                            setCookie("password", password, 7);
+                            if (data.trim() === "admin") {
+                                window.location.href = "main_admin.jsp";
+                            } else if (data.trim() === "user") {
+                                window.location.href = "main.html";
+                            } else {
+                                $(".error-message").text("Credenciales inválidas. Inténtalo de nuevo.");
+                            }
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            console.error("Error:", textStatus, errorThrown);
+                            $(".error-message").text("Error en la solicitud. Inténtalo de nuevo.");
+                        }
+                    });
 
                 }
             </script>
